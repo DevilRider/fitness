@@ -1,11 +1,16 @@
 apply plugin: 'java'
 apply plugin: 'groovy'
+apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 group = 'org.gorgeous'
 jar {
     baseName = 'fitness'
     version = '0.0.1-SNAPSHOT'
+}
+
+springBoot {
+    mainClassName = 'org.gorgeous.Application'
 }
 
 sourceCompatibility = 1.8
