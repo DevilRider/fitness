@@ -1,4 +1,4 @@
-package org.gorgeous.config
+package org.gorgeous.fitness.config
 
 import groovy.transform.CompileStatic
 import org.mybatis.spring.annotation.MapperScan
@@ -11,6 +11,6 @@ import org.springframework.context.annotation.Configuration
  */
 @Configuration
 @CompileStatic
-@MapperScan(basePackages = ['org.fitness.*.mapper'], sqlSessionTemplateRef = "sqlSession")
+@MapperScan(basePackages = ['org.gorgeous.*.mapper'])
 class MybatisScanConfig {
 }
