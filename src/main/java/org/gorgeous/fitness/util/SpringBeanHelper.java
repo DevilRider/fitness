@@ -29,7 +29,8 @@ public class SpringBeanHelper implements ApplicationContextAware {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> T registerBean(String clazzName, String beanName, String property, Object value) {
+    public static <T> T registerBean(String clazzName, String beanName,
+                                     String property, Object value) {
         //获取BeanFactory
         DefaultListableBeanFactory defaultListableBeanFactory =
                 (DefaultListableBeanFactory) ctx.getAutowireCapableBeanFactory();
@@ -40,7 +41,8 @@ public class SpringBeanHelper implements ApplicationContextAware {
 
         beanDefinitionBuilder.addPropertyValue(property, value);
         //动态注册bean.
-        defaultListableBeanFactory.registerBeanDefinition(beanName, beanDefinitionBuilder.getBeanDefinition());
+        defaultListableBeanFactory.registerBeanDefinition(beanName,
+                beanDefinitionBuilder.getBeanDefinition());
         return getBean(beanName);
     }
 
