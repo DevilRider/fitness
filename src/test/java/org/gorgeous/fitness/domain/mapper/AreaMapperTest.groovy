@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired
  */
 class AreaMapperTest extends AbstractTest {
 
-
     @Autowired
     private AreaMapper areaMapper
 

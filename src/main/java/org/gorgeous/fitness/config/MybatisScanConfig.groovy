@@ -11,6 +11,6 @@ import org.springframework.context.annotation.Configuration
  */
 @Configuration
 @CompileStatic
-@MapperScan(basePackages = ['org.gorgeous.*.mapper'])
+@MapperScan(basePackages = ['org.gorgeous.**.mapper'])
 class MybatisScanConfig {
 }
