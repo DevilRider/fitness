@@ -70,6 +70,9 @@
  * 约课 book
  * 变更 change
  * 交换 exchange
+ 
+ ## 参考文献
+ [state pattern](https://juejin.im/entry/5a26b17df265da4319562263) 
 
 
 
