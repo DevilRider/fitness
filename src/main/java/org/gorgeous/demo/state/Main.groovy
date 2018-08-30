@@ -6,8 +6,7 @@ import org.gorgeous.demo.state.status.Apply
 import org.gorgeous.demo.state.status.OrderStatus
 
 /**
- * TODO 添加描述信息.
- * @project danakilat
+ * @project fitness
  * @author l.yang on 2018/4/4 下午6:46
  */
 @CompileStatic

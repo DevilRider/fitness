@@ -3,8 +3,7 @@ package org.gorgeous.demo.state
 import org.gorgeous.demo.state.status.OrderStatus
 
 /**
- * TODO 添加描述信息.
- * @project danakilat
+ * @project fitness
  * @author l.yang on 2018/4/4 下午6:58
  */
 class Order {

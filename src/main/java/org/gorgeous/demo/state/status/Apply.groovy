@@ -5,8 +5,7 @@ import groovy.util.logging.Slf4j
 import org.gorgeous.demo.state.Order
 
 /**
- * TODO 添加描述信息.
- * @project danakilat
+ * @project fitness
  * @author l.yang on 2018/4/4 下午6:48
  */
 @CompileStatic
