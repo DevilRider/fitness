@@ -27,7 +27,6 @@ class RandomCodeTest {
         assert codes.first().length() == length
     }
 
-
     @Test
     void testRandom() {
         int length = 4
