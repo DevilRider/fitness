@@ -28,7 +28,7 @@ class RandomCode {
     private int size
 
     /** 随机码类型集合. */
-    private List<Type> types = []
+    private Set<Type> types = []
 
     private List<String> excludeChars = []
 
@@ -124,7 +124,7 @@ class RandomCode {
      * @param length 单个随机码长度
      * @param types 随机码类型
      */
-    private static void check(int size, int length, List<Type> types) {
+    private static void check(int size, int length, Set<Type> types) {
         if (size <= 0) {
             throw new RuntimeException('size must greater then 0')
         }
@@ -148,7 +148,7 @@ class RandomCode {
      * @param excludeChars 要忽略的字符
      * @return 随机码
      */
-    private static String generateCode(int length, List<Type> types, List<String> excludeChars) {
+    private static String generateCode(int length, Set<Type> types, List<String> excludeChars) {
         List<String> pool = getCodePool(types)
         Random random = new SecureRandom()
         String code = ''
@@ -164,6 +164,7 @@ class RandomCode {
      * <pre>
      *     如果随机码为空，则需要进行generate
      *     如果随机码不为空，则需要判断 随机码 是否满足 随机码类型中的必选要求
+     *     如果随机码包含忽略字符串，则需要进行生成
      * </pre>
      *
      * @param code 随机码
@@ -172,11 +173,16 @@ class RandomCode {
      *
      * @return 是否需要进行生成
      */
-    private static boolean needGenerate(String code, List<Type> types, List<String> excludeChars) {
+    private static boolean needGenerate(String code, Set<Type> types, List<String> excludeChars) {
         if (!code) {
             return true
         }
 
+        return checkRequired(code, types) ?: checkExclude(code, excludeChars)
+    }
+
+
+    private static boolean checkRequired(String code, Set<Type> types) {
         boolean retry = false
         for (Type type : types.findResults { if (it.required) it }) {
             boolean contains = false
@@ -185,18 +191,23 @@ class RandomCode {
                     contains = true
                     break
                 }
-
-                if (excludeChars.contains(code.charAt(i).toString())) {
-                    contains = false
-                    break
-                }
             }
 
             if (!contains) {
                 retry = true
                 break
             }
+        }
+        return retry
+    }
 
+    private static checkExclude(String code, List<String> excludeChars) {
+        boolean retry = false
+        for (int i = 0; i < code.length(); i++) {
+            if (excludeChars.contains(code.charAt(i).toString())) {
+                retry = true
+                break
+            }
         }
         return retry
     }
@@ -222,7 +233,7 @@ class RandomCode {
     }
 
     /** 获取数据池. */
-    private static List<String> getCodePool(List<Type> types) {
+    private static List<String> getCodePool(Set<Type> types) {
         List<String> dataPool = []
         types.each { dataPool.addAll(it.pool) }
         return dataPool
