@@ -30,10 +30,11 @@ class RandomCodeTest {
     @Test
     void testRandom() {
         int length = 4
-        int size = 30
+        int size = 10
         List<String> codes = RandomCode.newInstance(length, size)
                 .useNumeric(true)
                 .useLowercase(true)
+                .exclude('0','o','l','i','z')
                 .random()
 
         codes.each {

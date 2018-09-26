@@ -30,6 +30,8 @@ class RandomCode {
     /** 随机码类型集合. */
     private List<Type> types = []
 
+    private List<String> excludeChars = []
+
     /**
      * 构造方法.
      *
@@ -90,6 +92,16 @@ class RandomCode {
     }
 
     /**
+     * 忽略字符.
+     *
+     * @param excludeChar 要忽略的字符
+     */
+    RandomCode exclude(String... excludeChar) {
+        excludeChars.addAll(excludeChar.toList())
+        return this
+    }
+
+    /**
      * 生成随机码
      * @return 随机码列表
      */
@@ -97,7 +109,7 @@ class RandomCode {
         check(size, length, types)
         List<String> result = []
         size.times {
-            result << generateCode(length, types)
+            result << generateCode(length, types, excludeChars)
         }
         return result
     }
@@ -133,13 +145,14 @@ class RandomCode {
      *
      * @param length 单个随机码长度
      * @param types 随机码类型
+     * @param excludeChars 要忽略的字符
      * @return 随机码
      */
-    private static String generateCode(int length, List<Type> types) {
+    private static String generateCode(int length, List<Type> types, List<String> excludeChars) {
         List<String> pool = getCodePool(types)
         Random random = new SecureRandom()
         String code = ''
-        while (needGenerate(code, types)) {
+        while (needGenerate(code, types, excludeChars)) {
             code = generate(length, pool, random)
         }
         return code
@@ -155,10 +168,11 @@ class RandomCode {
      *
      * @param code 随机码
      * @param types 随机码类型
+     * @param excludeChars 要忽略的字符
      *
      * @return 是否需要进行生成
      */
-    private static boolean needGenerate(String code, List<Type> types) {
+    private static boolean needGenerate(String code, List<Type> types, List<String> excludeChars) {
         if (!code) {
             return true
         }
@@ -171,12 +185,18 @@ class RandomCode {
                     contains = true
                     break
                 }
+
+                if (excludeChars.contains(code.charAt(i).toString())) {
+                    contains = false
+                    break
+                }
             }
 
             if (!contains) {
                 retry = true
                 break
             }
+
         }
         return retry
     }
